@@ -20,4 +20,60 @@ myTaskForm.addEventListener("submit",(event)=>{
     const task = taskInput.value;
     console.log(task);
 
+    if(task){
+        myTaskList.append(createTask(task))
+        taskInput.value = '';
+    }
+
+
 });
+
+//Funciont crear Button
+function createButton(text, className) {
+  const btn = document.createElement('span')
+  btn.textContent = text
+  btn.className = className
+  return btn
+}
+
+//Funcion crear Task
+function createTask(task){
+    const li = document.createElement('li');
+    li.textContent = task
+
+    li.append(createButton('❌','delete-btn'),
+    createButton('✏️','edit-btn'));
+
+    return li;
+
+};
+
+//Escuchando botones borrar y editar
+myTaskList.addEventListener("click",(event)=>{
+    console.log(event);//Comprobando el click dentro de la lista
+
+    //Condicional para eliminar una task
+    if(event.target.classList.contains("delete-btn")){
+        console.log("si lo contiene");//Comprobando el if
+        deleteTask(event.target.parentElement);
+    }else if(event.target.classList.contains("edit-btn")){
+        console.log(event.target.classList);//Comprobando la clase que contiene
+        editTask(event.target.parentElement);
+    };  
+
+});
+
+//Funcion eliminar Task
+function deleteTask(taskItem){
+    if(confirm("Estas segura / seguro de borrar este elemento")){
+        taskItem.remove();
+    };
+};
+
+//Function editar Task
+function editTask(taskItem){
+    const newTask = prompt("Edita la Tarea:",taskItem.firstChild.textContent);
+    if(newTask !== null){
+        taskItem.firstChild.textContent = newTask;
+    };
+};
