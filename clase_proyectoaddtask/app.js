@@ -8,6 +8,11 @@ console.log(myTaskForm);
 const myTaskList = document.getElementById("task-list");
 console.log(myTaskList);
 
+
+//Cargando las tareas
+loadTask();
+
+
 //Esuchando el fomrulario
 myTaskForm.addEventListener("submit",(event)=>{
 
@@ -85,4 +90,14 @@ function storeTaskLocalStorage (task){
 
     tasks.push(task);//Agregando la tarea nueva al rray
     localStorage.setItem("tasks",JSON.stringify(tasks));//Guardando  esa tarea en el localStorage
-}
+};
+
+//Funcion para cargar tareas y renderizarlas
+function loadTask(){
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+    tasks.forEach((task) => {
+        myTaskList.append(createTask(task));
+    });
+};
+
