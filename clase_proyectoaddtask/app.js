@@ -21,7 +21,8 @@ myTaskForm.addEventListener("submit",(event)=>{
     console.log(task);
 
     if(task){
-        myTaskList.append(createTask(task))
+        myTaskList.append(createTask(task));
+        storeTaskLocalStorage(task);
         taskInput.value = '';
     }
 
@@ -77,3 +78,11 @@ function editTask(taskItem){
         taskItem.firstChild.textContent = newTask;
     };
 };
+
+//Funcion para guardar las tareas en el localStorageS
+function storeTaskLocalStorage (task){
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+    tasks.push(task);//Agregando la tarea nueva al rray
+    localStorage.setItem("tasks",JSON.stringify(tasks));//Guardando  esa tarea en el localStorage
+}
