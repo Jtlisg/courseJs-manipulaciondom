@@ -82,6 +82,8 @@ function editTask(taskItem){
     if(newTask !== null){
         taskItem.firstChild.textContent = newTask;
     };
+
+    updateLocalStorage();
 };
 
 //Funcion para guardar las tareas en el localStorageS
@@ -101,3 +103,13 @@ function loadTask(){
     });
 };
 
+//Funcion actualizar localstorage
+function updateLocalStorage () {
+    // myTaskList.querySelectorAll("li");
+    const tasks = Array.from(myTaskList.querySelectorAll("li")).map((li)=>{
+      return   li.firstChild.textContent
+    });
+    console.log(tasks);
+
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+}
